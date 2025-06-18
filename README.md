@@ -10,3 +10,86 @@ This project involves a comprehensive analysis of car sales dataset to provide i
 - Safety and Feature Impact: Evaluate the influence of safety features, entertainment features, and overall vehicle feartures on customer rating and sales figures.
 - Market Trend Analysis: Identify market trends by analysing the popularity of different car makes and models over the year. Investigate if certain body types or fuel types are gaining tarnscations in the market.
 ### SQL Analysis:
+1) Overview of car sales:
+- Top selling car brand by price.
+  
+      SELECT TOP 1
+      Car_Make, SUM(Price) AS total_sales
+      FROM dbo.[2023 Car Dataset]
+      GROUP BY Car_Make
+      ORDER BY total_sales DESC
+
+- Top selling car brand by unit sold.
+  
+      SELECT TOP 1
+      Car_Make, SUM(Sales_Figures_Units_Sold) AS unit_sold
+      FROM dbo.[2023 Car Dataset]
+      GROUP BY Car_Make
+      ORDER BY unit_sold DESC
+
+2) Sales Performance Analysis:
+
+        SELECT TOP 10
+        Car_Make, Car_Model, Year, SUM(Sales_Figures_Units_Sold) AS unit_sold
+        FROM dbo.[2023 Car Dataset]
+        GROUP BY
+        Car_Make,
+        Car_Model,
+        Year
+        ORDER BY unit_sold DESC
+
+3) Customer Preferences:
+
+        SELECT TOP 10
+        Car_Make, Car_Model, Body_Type, Color_Options,
+        SUM(Sales_Figures_Units_Sold) AS unit_sold
+        FROM dbo.[2023 Car Dataset]
+        GROUP BY 
+        Car_Make, Car_Model, Body_Type, Color_Options
+        ORDER BY unit_sold DESC
+
+4) Fuel Efficiency Impact:
+
+        SELECT TOP 10
+        Car_Make, Car_Model, Mileage_MPG,
+        SUM(Sales_Figures_Units_Sold) AS unit_sold
+        FROM dbo.[2023 Car Dataset]
+        GROUP BY
+        Car_Make, Car_Model, Mileage_MPG
+        ORDER BY unit_sold DESC
+
+5) Price Sensitivity:
+
+        SELECT TOP 10
+        Car_Make, Car_Model,
+        SUM(Price) AS total_sales,
+        AVG(TRY_CAST(LEFT(Customer_Ratings, 3) AS FLOAT)) AS avg_rating
+        FROM dbo.[2023 Car Dataset]
+        GROUP BY 
+        Car_Make, Car_Model
+        ORDER BY 
+        total_sales DESC
+
+6) Safety and Features Impact:
+
+        SELECT TOP 10
+        Car_Make, Car_Model,
+        SUM(Price) AS total_sales,
+        AVG(TRY_CAST(LEFT(Customer_Ratings, 3) AS FLOAT)) AS avg_rating,
+        Safety_Features, Entertainment_Features
+        FROM dbo.[2023 Car Dataset]
+        GROUP BY 
+        Car_Make, Car_Model, Safety_Features, Entertainment_Features
+        ORDER BY 
+        total_sales DESC
+
+7) Market Trend Analysis:
+
+        SELECT TOP 10
+        Car_Make, Car_Model, Body_Type, Fuel_Type, Year,
+        SUM(Sales_Figures_Units_Sold) AS unit_sold
+        FROM dbo.[2023 Car Dataset]
+        GROUP BY
+        Car_Make, Car_Model, Body_Type, Fuel_Type, Year
+        ORDER BY
+        unit_sold DESC
